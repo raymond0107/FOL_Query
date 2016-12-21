@@ -1,0 +1,340 @@
+Created by PLY version 3.9 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> term1
+Rule 1     term1 -> term1 IMPLY term2
+Rule 2     term1 -> term2
+Rule 3     term2 -> term2 & term3
+Rule 4     term2 -> term2 | term3
+Rule 5     term2 -> term3
+Rule 6     term3 -> factor
+Rule 7     term3 -> ~ term3
+Rule 8     term3 -> ( term1 )
+Rule 9     factor -> NAME ( args )
+Rule 10    args -> NAME
+Rule 11    args -> VAR
+Rule 12    args -> args , NAME
+Rule 13    args -> args , VAR
+
+Terminals, with rules where they appear
+
+&                    : 3
+(                    : 8 9
+)                    : 8 9
+,                    : 12 13
+IMPLY                : 1
+NAME                 : 9 10 12
+VAR                  : 11 13
+error                : 
+|                    : 4
+~                    : 7
+
+Nonterminals, with rules where they appear
+
+args                 : 9 12 13
+factor               : 6
+term1                : 1 8 0
+term2                : 1 2 3 4
+term3                : 3 4 5 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . term1
+    (1) term1 -> . term1 IMPLY term2
+    (2) term1 -> . term2
+    (3) term2 -> . term2 & term3
+    (4) term2 -> . term2 | term3
+    (5) term2 -> . term3
+    (6) term3 -> . factor
+    (7) term3 -> . ~ term3
+    (8) term3 -> . ( term1 )
+    (9) factor -> . NAME ( args )
+
+    ~               shift and go to state 7
+    (               shift and go to state 4
+    NAME            shift and go to state 5
+
+    term3                          shift and go to state 1
+    term2                          shift and go to state 2
+    term1                          shift and go to state 3
+    factor                         shift and go to state 6
+
+state 1
+
+    (5) term2 -> term3 .
+
+    &               reduce using rule 5 (term2 -> term3 .)
+    |               reduce using rule 5 (term2 -> term3 .)
+    IMPLY           reduce using rule 5 (term2 -> term3 .)
+    $end            reduce using rule 5 (term2 -> term3 .)
+    )               reduce using rule 5 (term2 -> term3 .)
+
+
+state 2
+
+    (2) term1 -> term2 .
+    (3) term2 -> term2 . & term3
+    (4) term2 -> term2 . | term3
+
+    )               reduce using rule 2 (term1 -> term2 .)
+    IMPLY           reduce using rule 2 (term1 -> term2 .)
+    $end            reduce using rule 2 (term1 -> term2 .)
+    &               shift and go to state 9
+    |               shift and go to state 8
+
+
+state 3
+
+    (0) S' -> term1 .
+    (1) term1 -> term1 . IMPLY term2
+
+    IMPLY           shift and go to state 10
+
+
+state 4
+
+    (8) term3 -> ( . term1 )
+    (1) term1 -> . term1 IMPLY term2
+    (2) term1 -> . term2
+    (3) term2 -> . term2 & term3
+    (4) term2 -> . term2 | term3
+    (5) term2 -> . term3
+    (6) term3 -> . factor
+    (7) term3 -> . ~ term3
+    (8) term3 -> . ( term1 )
+    (9) factor -> . NAME ( args )
+
+    ~               shift and go to state 7
+    (               shift and go to state 4
+    NAME            shift and go to state 5
+
+    term3                          shift and go to state 1
+    term2                          shift and go to state 2
+    term1                          shift and go to state 11
+    factor                         shift and go to state 6
+
+state 5
+
+    (9) factor -> NAME . ( args )
+
+    (               shift and go to state 12
+
+
+state 6
+
+    (6) term3 -> factor .
+
+    &               reduce using rule 6 (term3 -> factor .)
+    |               reduce using rule 6 (term3 -> factor .)
+    )               reduce using rule 6 (term3 -> factor .)
+    IMPLY           reduce using rule 6 (term3 -> factor .)
+    $end            reduce using rule 6 (term3 -> factor .)
+
+
+state 7
+
+    (7) term3 -> ~ . term3
+    (6) term3 -> . factor
+    (7) term3 -> . ~ term3
+    (8) term3 -> . ( term1 )
+    (9) factor -> . NAME ( args )
+
+    ~               shift and go to state 7
+    (               shift and go to state 4
+    NAME            shift and go to state 5
+
+    term3                          shift and go to state 13
+    factor                         shift and go to state 6
+
+state 8
+
+    (4) term2 -> term2 | . term3
+    (6) term3 -> . factor
+    (7) term3 -> . ~ term3
+    (8) term3 -> . ( term1 )
+    (9) factor -> . NAME ( args )
+
+    ~               shift and go to state 7
+    (               shift and go to state 4
+    NAME            shift and go to state 5
+
+    term3                          shift and go to state 14
+    factor                         shift and go to state 6
+
+state 9
+
+    (3) term2 -> term2 & . term3
+    (6) term3 -> . factor
+    (7) term3 -> . ~ term3
+    (8) term3 -> . ( term1 )
+    (9) factor -> . NAME ( args )
+
+    ~               shift and go to state 7
+    (               shift and go to state 4
+    NAME            shift and go to state 5
+
+    term3                          shift and go to state 15
+    factor                         shift and go to state 6
+
+state 10
+
+    (1) term1 -> term1 IMPLY . term2
+    (3) term2 -> . term2 & term3
+    (4) term2 -> . term2 | term3
+    (5) term2 -> . term3
+    (6) term3 -> . factor
+    (7) term3 -> . ~ term3
+    (8) term3 -> . ( term1 )
+    (9) factor -> . NAME ( args )
+
+    ~               shift and go to state 7
+    (               shift and go to state 4
+    NAME            shift and go to state 5
+
+    term3                          shift and go to state 1
+    term2                          shift and go to state 16
+    factor                         shift and go to state 6
+
+state 11
+
+    (8) term3 -> ( term1 . )
+    (1) term1 -> term1 . IMPLY term2
+
+    )               shift and go to state 17
+    IMPLY           shift and go to state 10
+
+
+state 12
+
+    (9) factor -> NAME ( . args )
+    (10) args -> . NAME
+    (11) args -> . VAR
+    (12) args -> . args , NAME
+    (13) args -> . args , VAR
+
+    NAME            shift and go to state 18
+    VAR             shift and go to state 20
+
+    args                           shift and go to state 19
+
+state 13
+
+    (7) term3 -> ~ term3 .
+
+    &               reduce using rule 7 (term3 -> ~ term3 .)
+    |               reduce using rule 7 (term3 -> ~ term3 .)
+    )               reduce using rule 7 (term3 -> ~ term3 .)
+    IMPLY           reduce using rule 7 (term3 -> ~ term3 .)
+    $end            reduce using rule 7 (term3 -> ~ term3 .)
+
+
+state 14
+
+    (4) term2 -> term2 | term3 .
+
+    &               reduce using rule 4 (term2 -> term2 | term3 .)
+    |               reduce using rule 4 (term2 -> term2 | term3 .)
+    IMPLY           reduce using rule 4 (term2 -> term2 | term3 .)
+    $end            reduce using rule 4 (term2 -> term2 | term3 .)
+    )               reduce using rule 4 (term2 -> term2 | term3 .)
+
+
+state 15
+
+    (3) term2 -> term2 & term3 .
+
+    &               reduce using rule 3 (term2 -> term2 & term3 .)
+    |               reduce using rule 3 (term2 -> term2 & term3 .)
+    IMPLY           reduce using rule 3 (term2 -> term2 & term3 .)
+    $end            reduce using rule 3 (term2 -> term2 & term3 .)
+    )               reduce using rule 3 (term2 -> term2 & term3 .)
+
+
+state 16
+
+    (1) term1 -> term1 IMPLY term2 .
+    (3) term2 -> term2 . & term3
+    (4) term2 -> term2 . | term3
+
+    )               reduce using rule 1 (term1 -> term1 IMPLY term2 .)
+    IMPLY           reduce using rule 1 (term1 -> term1 IMPLY term2 .)
+    $end            reduce using rule 1 (term1 -> term1 IMPLY term2 .)
+    &               shift and go to state 9
+    |               shift and go to state 8
+
+
+state 17
+
+    (8) term3 -> ( term1 ) .
+
+    &               reduce using rule 8 (term3 -> ( term1 ) .)
+    |               reduce using rule 8 (term3 -> ( term1 ) .)
+    )               reduce using rule 8 (term3 -> ( term1 ) .)
+    IMPLY           reduce using rule 8 (term3 -> ( term1 ) .)
+    $end            reduce using rule 8 (term3 -> ( term1 ) .)
+
+
+state 18
+
+    (10) args -> NAME .
+
+    )               reduce using rule 10 (args -> NAME .)
+    ,               reduce using rule 10 (args -> NAME .)
+
+
+state 19
+
+    (9) factor -> NAME ( args . )
+    (12) args -> args . , NAME
+    (13) args -> args . , VAR
+
+    )               shift and go to state 21
+    ,               shift and go to state 22
+
+
+state 20
+
+    (11) args -> VAR .
+
+    )               reduce using rule 11 (args -> VAR .)
+    ,               reduce using rule 11 (args -> VAR .)
+
+
+state 21
+
+    (9) factor -> NAME ( args ) .
+
+    &               reduce using rule 9 (factor -> NAME ( args ) .)
+    |               reduce using rule 9 (factor -> NAME ( args ) .)
+    IMPLY           reduce using rule 9 (factor -> NAME ( args ) .)
+    $end            reduce using rule 9 (factor -> NAME ( args ) .)
+    )               reduce using rule 9 (factor -> NAME ( args ) .)
+
+
+state 22
+
+    (12) args -> args , . NAME
+    (13) args -> args , . VAR
+
+    NAME            shift and go to state 24
+    VAR             shift and go to state 23
+
+
+state 23
+
+    (13) args -> args , VAR .
+
+    )               reduce using rule 13 (args -> args , VAR .)
+    ,               reduce using rule 13 (args -> args , VAR .)
+
+
+state 24
+
+    (12) args -> args , NAME .
+
+    )               reduce using rule 12 (args -> args , NAME .)
+    ,               reduce using rule 12 (args -> args , NAME .)
+
